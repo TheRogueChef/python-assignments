@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1.0, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename ='style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js')}}"></script>
+    <title>Dashboard</title>
+</head>
+<body>
+        <header>
+            <h1 id=head>Created by {{the_user.first_name}}</h1>
+            <a class='navLink' href="/pie/derby">Pie Derby</a>
+            <a class=navLink href="/logout">Log Out</a>
+        </header>
+        <div id=container>
+        <div id=wrapper>
+            <div id="displayTable">
+                <h2 class=subHead>All Pies:</h2>
+                <table>
+                <thead>
+                    <tr>
+                        <th>Pie Maker</th>
+                        <th>Pie Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pie in the_user.pies %}
+                    <tr>
+                        <td class="tableData">{{pie.userfk.first_name}}</td>
+                        <td class="tableData">{{pie.name}}</td>
+                        <td class="tableData">
+                            <a class='navLink' href="/pie/edit/{{pie.id}}">Edit</a>
+                            <p>   </p>
+                            <a class='navLink' href="/pie/delete/{{pie.id}}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+        <div id=wrapper2>
+                <h2>Lets make a new pie!</h2>
+                <form action="/pie/create" method="post">
+                    {% with messages = get_flashed_messages() %}    
+                        {% if messages %}                            
+                            {% for message in messages %}            
+                                <p>{{message}}</p>                   
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    </select>
+                    <div class='formGroup'>
+                        <label for="name">Pie Name:</label>
+                        <input type="text" name="name">
+                    </div> 
+                    <div class='formGroup'>
+                        <label for="filling">Filling Type:</label>
+                        <input type="text" name="filling">
+                    </div>
+                    <div class='formGroup'>       
+                        <label for="crust">Crust Type:</label>
+                        <input type="text" name="crust"> 
+                    </div>      
+                    <button>Add Pie</button>
+                </form>
+        </div> 
+    </div>
+</body>
+</html>

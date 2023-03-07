@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1.0, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename ='style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js')}}"></script>
+    <title>Register</title>
+</head>
+<body>
+<div id=wrapper>
+    <header>
+        <h1 id=head>Create a New Recipe</h1> 
+        <a href="/recipe">Home Page</a>
+    </header>
+    <div>
+        <h2>The Form</h2>
+        <form action="/recipe/create" method="post">
+                {% for recipe in all_recipes %}
+                    <h2>{{recipe.userfk.first_name}}</h2>
+                {% endfor %}
+            {% with messages = get_flashed_messages() %}    
+                {% if messages %}                            
+                    {% for message in messages %}            
+                        <p>{{message}}</p>                   
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            </select>
+            <label for="type">Recipe Name:</label>
+            <input type="text" name="name">
+            <label for="description">Description:</label>
+            <input type="text" name="description">       
+            <label for="instructions">Instructions:</label>
+            <input type="text" name="instructions">       
+            <button>Submit</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

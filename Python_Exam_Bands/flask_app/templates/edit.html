@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1.0, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename ='style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js')}}"></script>
+    <title>Edit Page</title>
+</head>
+<body>
+<div id=wrapper>
+    <header>
+        <h1 id=head>Rock On!!!!</h1>
+        <h2 id=head>Edit your Band</h2> 
+        <a href="/band">Dashboard</a>
+        <a class=navLink href="/logout">Log Out</a>
+    </header>
+    <div>
+        <h2></h2>
+        <form action="/band/update/{{band.id}}" method="post">
+            {% with messages = get_flashed_messages() %}    
+                {% if messages %}                            
+                    {% for message in messages %}            
+                        <p>{{message}}</p>                   
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <label for="name">Band Name:</label>
+            <input type="text" name="name" value="{{band.name}}">
+            <label for="genre">Music Genre:</label>
+            <input type="text" name="genre" value="{{band.genre}}" min="1">       
+            <label for="city">Home City:</label>
+            <input type="text" name="city" value="{{band.city}}" min="1">       
+            <button>Edit Band</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

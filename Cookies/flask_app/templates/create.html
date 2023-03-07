@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1.0, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename ='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js')}}"></script>
+    <title>Register</title>
+</head>
+<body>
+<div id=wrapper>
+    <header>
+        <h1 id=head>Log a New Order</h1> 
+        <a href="/cookies">Go Home!</a>
+    </header>
+    <div>
+        <h2>The Form</h2>
+        <form action="/order/create" method="post">
+            {% with messages = get_flashed_messages() %}    
+                {% if messages %}                            
+                    {% for message in messages %}            
+                        <p>{{message}}</p>                   
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <select name="creator_id">
+                {% for user in all_users %}
+                <option value="{{user.id}}">{{user.first_name}}</option>
+                {% endfor %}
+            </select>
+            <label for="type">Cookie Type:</label>
+            <input type="text" name="type">
+            <label for="box_quantity">How Many?:</label>
+            <input type="number" name="box_quantity">       
+            <button>Submit</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

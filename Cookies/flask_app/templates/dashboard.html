@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1.0, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename ='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js')}}"></script>
+    <title>Register</title>
+</head>
+<body>
+    <div id=wrapper>
+        <header>
+            <h1 id=head>Cookie Orders</h1>
+            <a class=navLink href="/order/new">+ Create a New Order</a>
+            <a class=navLink href="/logout">Log Out</a>
+        </header>
+        <div id="displayTable">
+            <h2 class=subHead>All Orders:</h2>
+            <table>
+            <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Cookie Type</th>
+                    <th>Number of Boxes</th>
+                    <th>Ordered On</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in all_orders %}
+                <tr>
+                    <td class="tableData"><a href = "/user/show/{{order.creator.id}}">{{order.creator.first_name}} {{order.creator.last_name}}</a></td>
+                    <td class="tableData">{{order.type}}</td>
+                    <td class="tableData">{{order.box_quantity}}</td>
+                    <td class="tableData">{{order.created_at.strftime(dtf)}}</td>
+                    <td class="tableData">
+                        <a class=navLink href="/cookies/edit/{{order.id}}">Edit</a> |
+                        <a class=navLink href="/cookies/delete/{{order.id}}">Cancel</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

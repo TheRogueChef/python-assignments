@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1.0, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename ='style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js')}}"></script>
+    <title>Dashboard</title>
+</head>
+<body>
+        <header>
+            <h1 id=head>Rock On!!!!</h1>
+            <a class='navLink' href="/band">Dashboard</a>
+            <a class='navLink' href="/band/show/<int:band_id>">My Bands</a>
+            <a class='navLink' href="/logout">Log Out</a>
+        </header>
+        <div id=container>
+        <div id=wrapper2>
+            <h2>Lets make a new band!</h2>
+            <form action="/band/create" method="post">
+                {% with messages = get_flashed_messages() %}    
+                    {% if messages %}                            
+                        {% for message in messages %}            
+                            <p>{{message}}</p>                   
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                </select>
+                <div class='formGroup'>
+                    <label for="type">Band Name:</label>
+                    <input type="text" name="name">
+                </div> 
+                <div class='formGroup'>
+                    <label for="genre">Music Genre:</label>
+                    <input type="text" name="genre">
+                </div>
+                <div class='formGroup'>       
+                    <label for="city">Home City:</label>
+                    <input type="text" name="city"> 
+                </div>      
+                <button>Create Band</button>
+            </form>
+        </div> 

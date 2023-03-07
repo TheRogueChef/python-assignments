@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1.0, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static', filename ='style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js')}}"></script>
+    <title>Edit Page</title>
+</head>
+<body>
+<div id=wrapper>
+    <header>
+        <h1 id=head>Edit your Pie</h1> 
+        <a href="/pie">Dashboard</a>
+        <a class=navLink href="/logout">Log Out</a>
+    </header>
+    <div>
+        <h2></h2>
+        <form action="/pie/update/{{pie.id}}" method="post">
+            {% with messages = get_flashed_messages() %}    
+                {% if messages %}                            
+                    {% for message in messages %}            
+                        <p>{{message}}</p>                   
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <label for="name">Pie Name:</label>
+            <input type="text" name="name" value="{{pie.name}}">
+            <label for="filling">Pie Filling:</label>
+            <input type="text" name="filling" value="{{pie.filling}}" min="1">       
+            <label for="crust">Crust Type:</label>
+            <input type="text" name="crust" value="{{pie.crust}}" min="1">       
+            <button>Edit Pie</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
